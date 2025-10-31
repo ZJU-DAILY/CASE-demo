@@ -1,7 +1,0 @@
-/home/liucy/demo/influence/backend/cpp_imm/build/CMakeFiles/influence_api_server.dir
-/home/liucy/demo/influence/backend/cpp_imm/build/CMakeFiles/edit_cache.dir
-/home/liucy/demo/influence/backend/cpp_imm/build/CMakeFiles/rebuild_cache.dir
-/home/liucy/demo/influence/backend/cpp_imm/build/CMakeFiles/list_install_components.dir
-/home/liucy/demo/influence/backend/cpp_imm/build/CMakeFiles/install.dir
-/home/liucy/demo/influence/backend/cpp_imm/build/CMakeFiles/install/local.dir
-/home/liucy/demo/influence/backend/cpp_imm/build/CMakeFiles/install/strip.dir
