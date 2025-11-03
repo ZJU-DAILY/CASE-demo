@@ -1,0 +1,84 @@
+/**
+ * _panels.css
+ *
+ * 为左右面板标题应用其专属的主题色。
+ */
+
+/* --- 左侧控制面板 --- */
+.control-panel {
+    width: 100%; height: 100%; padding: 25px;
+    display: flex; flex-direction: column; z-index: 20; box-sizing: border-box;
+}
+
+/* 【核心修改】让左侧标题使用“控制面板”主题色 */
+/* 【核心修改】让左右侧标题使用“控制面板”主题色，并统一字体大小 */
+#control-panel-card .panel-title,
+#results-card .results-title {
+    /* [!code --] color: var(--controls-accent-primary); */
+    margin: 0 0 20px 0; /* 统一下方间距 */
+    color: var(--font-color);
+    font-size: var(--font-size-panel-title); /* [!code ++] */
+    font-weight: 700; /* [!code ++] */
+}
+
+.form-content {
+    flex-grow: 1; overflow-y: auto; padding-right: 15px;
+    display: flex; flex-direction: column;
+}
+
+.control-sub-panel {
+    border: 1px solid var(--border-color-extralight);
+    box-shadow: var(--shadow-subtle);
+    border-radius: var(--component-border-radius);
+    padding: 20px 15px 15px 15px; margin-bottom: 20px;
+    background-color: var(--card-bg-color);
+}
+
+.control-sub-panel:last-child { margin-bottom: 0; }
+
+.sub-panel-title {
+    margin: 0 0 15px 0; padding: 0 10px;
+    background: var(--card-bg-color); width: fit-content;
+    font-size: var(--font-size-subtitle);
+    font-weight: 700;
+}
+
+/* --- 右侧结果面板 --- */
+.results-area {
+    width: 100%; height: 100%; padding: 20px;
+    box-sizing: border-box; display: flex; flex-direction: column;
+}
+
+/* ... 文件其余部分保持不变 ... */
+.results-box {
+    flex-grow: 1; overflow-y: auto; padding-right: 10px;
+}
+#results-actions-container {
+    margin-top: auto; padding-top: 15px;
+    border-top: 1px solid var(--border-color);
+    display: flex; flex-direction: column; gap: 10px; flex-shrink: 0;
+}
+.result-section { margin-bottom: 22px; }
+.result-section:last-child { margin-bottom: 0; }
+.result-section h4 {
+    margin: 0 0 12px 0; font-size: var(--font-size-subtitle);
+    color: var(--font-color); font-weight: 700;
+}
+.chart-title {
+    margin: 25px 0 10px 0; font-size: var(--font-size-subtitle);
+    color: var(--font-color-secondary); font-weight: 500;
+    border-top: 1px solid var(--border-color); padding-top: 20px;
+}
+.chart-container { width: 100%; height: 250px; }
+
+.log-info,
+.log-success {
+    font-size: 20px; /* 使用稍大的“副标题”字号 */
+    font-weight: 500;
+    color: var(--font-color-secondary);
+    padding: 0 0;
+}
+
+.log-success {
+    color: #28a746c9; /* 成功消息使用绿色 */
+}

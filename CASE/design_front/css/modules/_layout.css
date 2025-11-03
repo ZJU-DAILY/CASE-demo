@@ -1,0 +1,78 @@
+/**
+ * _layout.css
+ *
+ * 定义了应用的主要布局结构，包括主容器和三个核心卡片。
+ */
+
+ .main-container {
+    display: flex;
+    height: 100vh;
+    padding: var(--main-padding);
+    /* [!code --] gap: var(--card-gap); */
+    /* [!code ++] gap: 0; /* 移除 gap，由 Split.js 的 gutter 代替 */
+    box-sizing: border-box;
+}
+
+.card {
+    background-color: var(--card-bg-color);
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--shadow-main);
+    border: 1px solid var(--border-color-light);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    transition: box-shadow 0.3s ease-in-out;
+    /* [!code ++] */
+    flex-shrink: 0; /* 防止面板在拖拽时被意外压缩 */
+}
+
+/* [!code-start] */
+/* --- 移除以下选择器 --- */
+/* #control-panel-card, #results-card {
+    flex-basis: 28%;
+    flex-shrink: 0;
+    min-width: 380px;
+} */
+/* [!code-end] */
+
+
+#graph-card {
+    flex: 1;
+}
+
+#graph-container-wrapper {
+    flex-grow: 1;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+#3d-graph-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* [!code-start] */
+/* --- 在文件末尾添加以下样式 --- */
+/* 为 Split.js 生成的拖拽条（Gutter）添加样式 */
+.gutter {
+    background-color: var(--bg-color); /* 设置背景色与主背景一致 */
+    background-repeat: no-repeat;
+    background-position: 50%;
+    transition: background-color 0.2s ease;
+}
+
+.gutter.gutter-horizontal {
+    background-image: url('data:image/svg+xml;charset=utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="10" height="30"%3E%3Cpath d="M2 0 v30 M5 0 v30 M8 0 v30" stroke-width="1.5" stroke="%23cccccc"/%3E%3C/svg%3E');
+    cursor: col-resize;
+}
+
+.gutter:hover {
+    background-color: var(--border-color-extralight);
+}
+/* [!code-end] */

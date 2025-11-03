@@ -1,0 +1,832 @@
+/**
+ * _components.css
+ *
+ * 定义所有可复用的UI组件样式。
+ * 通过作用域（#control-panel-card, #results-card）为组件应用不同的主题色。
+ */
+
+.hidden {
+    display: none !important;
+}
+
+/* ========================================================== */
+/* 1. 主题化样式（THEMED STYLES）                 */
+/* ========================================================== */
+
+/* --- 控制面板主题下的组件 --- */
+
+#control-panel-card .form-group input:focus,
+#control-panel-card .form-group select:focus,
+#control-panel-card .form-group textarea:focus {
+    border-color: var(--controls-accent-primary);
+}
+
+#control-panel-card .radio-label:has(input:checked) {
+    background-color: var(--controls-accent-primary);
+    color: white;
+}
+
+#control-panel-card .run-button {
+    background-color: var(--controls-accent-primary);
+}
+
+#control-panel-card .action-button {
+    border: 1px solid var(--controls-accent-primary);
+    color: var(--controls-accent-primary);
+}
+
+#control-panel-card .action-button:hover {
+    background-color: var(--controls-accent-primary);
+    color: white;
+}
+
+#control-panel-card input:checked+.slider {
+    background-color: var(--controls-accent-primary);
+}
+
+#control-panel-card .timeline-progress,
+#control-panel-card .timeline-step.completed .timeline-marker::after {
+    background-color: var(--controls-accent-primary);
+}
+
+#control-panel-card .timeline-step.completed .timeline-marker {
+    border-color: var(--controls-accent-primary);
+}
+
+#control-panel-card .slider-value {
+    color: var(--controls-accent-primary);
+    background-color: var(--controls-accent-secondary);
+}
+
+#control-panel-card input[type="range"] {
+    background-image: linear-gradient(var(--controls-accent-primary), var(--controls-accent-primary));
+}
+
+#control-panel-card input[type="range"]::-webkit-slider-thumb {
+    background: var(--controls-accent-primary);
+}
+
+#control-panel-card input[type="range"]::-moz-range-thumb {
+    background: var(--controls-accent-primary);
+}
+
+/* --- 结果面板主题下的组件 --- */
+
+#results-card .summary-tag .value {
+    color: var(--results-accent-primary);
+}
+
+#results-card .node-chip {
+    background-color: var(--results-accent-secondary);
+    color: var(--results-accent-primary);
+    border: 1px solid var(--results-accent-tertiary);
+}
+
+#results-card .node-chip:hover {
+    background-color: var(--results-accent-primary);
+    color: white;
+    border-color: var(--results-accent-primary);
+}
+
+
+/* ========================================================== */
+/* 2. 通用组件样式（GENERIC STYLES）              */
+/* ========================================================== */
+/* 这部分是组件的基础布局和非颜色样式，保持不变 */
+
+/* --- 表单组件 --- */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group:last-child {
+    margin-bottom: 0;
+}
+
+.form-group.inline {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
+    font-weight: 500;
+}
+/* 3. 神奇的自动外边距，实现右对齐 */
+.form-group.inline > :last-child {
+    margin-left: auto;
+}
+.form-group.inline label {
+    margin-bottom: 0;
+    flex-shrink: 0;
+}
+
+#propagation_model,
+#probability_model {
+    width: 30% !important; /* 给它们一个更窄的宽度，例如40% */
+}
+
+.form-group.inline select,
+.form-group.inline input,
+.form-group.inline .radio-group {
+    flex-grow: 0;       /* 关键！禁止元素拉伸以填充空间 */
+    flex-shrink: 0;     /* 防止元素在空间不足时被压缩 */
+    width: 50%;         /* 设置一个合适的宽度，例如55%。您可以根据喜好调整这个百分比 */
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: var(--font-size-body);
+    font-weight: 700;
+    color: var(--font-color);
+}
+
+/* 1. 先定义所有输入框的通用基础样式 */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 8px 10px;
+    background-color: var(--input-bg-color); /* 默认背景色 */
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-weight: 500;
+    color: var(--font-color);
+    font-size: var(--font-size-small)-1;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+/* 2. 然后，专门为 input 和 select 覆盖背景色 */
+.form-group input,
+.form-group select {
+    background-color: var(--controls-accent-secondary);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+}
+
+.radio-group {
+    display: flex;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.radio-label {
+    flex: 1;
+    text-align: center;
+    padding: 8px;
+    cursor: pointer;
+    background-color: var(--input-bg-color);
+    transition: background-color 0.3s, color 0.3s;
+    font-size: var(--font-size-body);
+    font-weight: 500;
+}
+
+.radio-label:not(:last-child) {
+    border-right: 1px solid var(--border-color);
+}
+
+.radio-label input {
+    display: none;
+}
+
+/* --- 按钮组件 --- */
+.run-button {
+    width: 100%;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold; /* 保持粗体 */
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: auto;
+    flex-shrink: 0;
+    
+    /* --- 核心修改在这里 --- */
+    padding: 12px 6px;      /* 1. 增加上下内边距，让按钮变得更高 */
+    font-size: 20px;         /* 2. 设置一个更大但安全的字体大小 */
+    white-space: nowrap;     /* 3. 强制文本不换行，保持单行显示 */
+    overflow: hidden;        /* 4. 如果文本实在太长，隐藏溢出部分（安全措施） */
+    text-overflow: ellipsis; /* 5. 如果文本溢出，用...表示（安全措施） */
+}
+
+.run-button:hover {
+    opacity: 0.85;
+}
+/* 1. 强制“Community Model”标签本身不换行 */
+#community_params_group .form-group.inline > label {
+    white-space: nowrap; /* 关键！禁止标签文字换行 */
+    flex-shrink: 0;      /* 禁止标签在空间不足时被压缩 */
+}
+
+/* 2. 强制单选按钮内的文字不换行，并调整样式 */
+#community_params_group .radio-label {
+    white-space: nowrap; /* 关键！禁止按钮内的文字(如 '(k,l)-core') 换行 */
+    flex: 1 1 auto;      /* 让按钮灵活分配空间，但以内容为基础 */
+    padding: 8px 10px;   /* 稍微调整内边距，让文字有呼吸空间 */
+}
+
+/* --- 主要操作按钮的最终样式 --- */
+.action-button {
+    position: relative; /* 为动效做准备 */
+    flex-grow: 1;
+    padding: 10px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: var(--font-size-body);
+    width: 100%;
+    text-align: center;
+    
+    /* --- 核心修改：默认的3D实心样式 --- */
+    background-color: var(--controls-accent-primary);
+    color: white !important;                          /* 1. 确保文字在任何状态下都优先为白色 */
+    font-weight: 700;
+    border: none;
+    
+    /* 2. 新的“暗色长条”实体阴影技术 */
+    box-shadow: 0 5px 0 0 #a14422; /* Y轴偏移5px，无模糊，深色版的按钮背景色 */
+
+    /* 动效过渡 */
+    transition: all 0.1s ease-out;
+}
+
+/* --- 悬浮效果：按钮轻微上浮，阴影拉长 --- */
+.action-button:hover {
+    transform: translateY(-2px);
+    /* 按钮上移2px，阴影就要向下延伸2px来保持真实感 (5px + 2px = 7px) */
+    box-shadow: 0 7px 0 0 #a14422; 
+    filter: brightness(110%);
+}
+
+/* --- 点击效果：按钮被“按下去”，阴影消失 --- */
+.action-button:active {
+    transform: translateY(2px); /* 向下移动，模拟被按下 */
+    box-shadow: 0 2px 0 0 #a14422; /* 阴影几乎被压平 */
+    filter: brightness(95%);
+}
+
+/* --- 关键！为“禁用”状态设计专门的样式 --- */
+.action-button:disabled {
+    background-color: #f7f7f7;                 /* 禁用时用浅灰色背景 */
+    color: #aeaeae !important;                  /* 禁用时用灰色文字 */
+    box-shadow: 0 4px 0 0 #e0e0e0;             /* 禁用时用一个更浅的灰色阴影 */
+    cursor: not-allowed;                       /* 鼠标指针变为“不可用” */
+    transform: none;                           /* 禁用时移除所有位移效果 */
+    filter: none;                              /* 禁用时移除亮度变化 */
+}
+
+/* 针对“Animation Loaded”这种成功状态的特殊样式 */
+.action-button:disabled.success {
+    background-color: white;
+    color: #28a745 !important; /* 绿色文字 */
+    font-weight: 700;
+    box-shadow: 0 3px 0 0 #e0e0e0;
+    border: 1px solid #e0e0e0;
+}
+
+/* --- 开关组件 --- */
+.control-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.control-row label {
+    margin: 0;
+    font-size: var(--font-size-body);
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked+.slider:before {
+    transform: translateX(20px);
+}
+
+/* --- 图例组件 --- */
+.graph-legend {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    background-color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 20px 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+}
+
+.legend-title {
+    margin: 0 0 18px 0;
+    font-weight: 600;
+    font-size: var(--font-size-subtitle);
+    text-align: center;
+}
+
+#legend-items-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 12px 28px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    font-size: var(--font-size-body);
+}
+
+.legend-swatch {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+}
+
+/* --- 结果展示组件 --- */
+.summary-tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.summary-tag {
+    background-color: var(--input-bg-color);
+    border: 1px solid var(--border-color-light);
+    box-shadow: var(--shadow-subtle);
+    border-radius: var(--component-border-radius);
+    padding: 8px 12px;
+    font-size: var(--font-size-small); /* [!code hl] 将 12px 提升为 13px */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.summary-tag .label {
+    color: var(--font-color-tertiary);
+    margin-bottom: 4px;
+    font-weight: 500;
+}
+
+.result-section-title {
+    font-size: var(--font-size-subtitle);
+    /* [!code hl] */
+    font-weight: 700;
+    color: var(--font-color);
+    margin-top: 25px;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-color-light);
+}
+
+.key-metrics-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.key-metric-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background-color: var(--input-bg-color);
+    padding: 15px;
+    border-radius: var(--component-border-radius);
+    border: 1px solid var(--border-color-extralight);
+    box-shadow: var(--shadow-subtle);
+}
+
+.metric-icon {
+    font-size: 24px;
+    background-color: var(--results-accent-secondary);
+    color: var(--results-accent-primary);
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.metric-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.metric-label {
+    font-size: var(--font-size-body); /* [!code hl] 将 13px 提升为 14px，与左侧表单标签一致 */
+    color: var(--font-color-tertiary);
+    margin-bottom: 4px;
+}
+
+.metric-value {
+    font-size: var(--font-size-subtitle);
+    font-weight: 600;
+    color: var(--results-accent-primary);
+}
+
+.chart-title {
+    font-size: var(--font-size-subtitle);
+    /* [!code hl] */
+    font-weight: 700;
+    color: var(--font-color);
+    margin-top: 25px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.chart-container {
+    min-height: 220px;
+    width: 100%;
+}
+
+.path-node-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--border-color-extralight);
+    box-shadow: var(--shadow-subtle);
+    padding: 15px;
+    border-radius: var(--component-border-radius);
+    margin-top: -15px;
+    /* 抵消标题的下边距，使标题和列表更紧凑 */
+}
+
+.path-node-item {
+    background-color: var(--controls-accent-secondary);
+    color: var(--controls-accent-primary);
+    border: 1px solid var(--controls-accent-tertiary);
+    font-weight: 500;
+    font-size: var(--font-size-body);
+    padding: 6px 12px;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.path-node-item:hover {
+    background-color: var(--controls-accent-primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.path-separator {
+    color: var(--font-color-tertiary);
+    font-size: var(--font-size-large);
+    font-weight: bold;
+}
+
+.node-chip-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--border-color-extralight);
+    box-shadow: var(--shadow-subtle);
+    padding: 15px;
+    border-radius: var(--component-border-radius);
+}
+
+.node-chip {
+    padding: 5px 10px;
+    border-radius: 16px;
+    font-size: var(--font-size-small); /* [!code hl] 统一使用 13px 变量 */
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.node-chip:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.metric {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--font-size-body);
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border-color-light);
+}
+
+.metric:last-child {
+    border-bottom: none;
+}
+
+.metric .value {
+    font-size: var(--font-size-large);
+    font-weight: 500;
+}
+
+.metric .label {
+    color: var(--font-color-tertiary);
+}
+
+.info-text {
+    color: var(--font-color-tertiary);
+    font-style: italic;
+    font-size: var(--font-size-body);
+}
+
+.error {
+    color: var(--error-color);
+    font-weight: bold;
+}
+
+/* --- 时间轴组件 --- */
+.timeline-container {
+    padding-top: 15px;
+    margin-bottom: 10px;
+}
+
+.timeline-track {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 10px;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    align-items: center;
+}
+
+.timeline-track::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    /* 核心修正 #1：左右缩进大圆点的半径（16px / 2 = 8px） */
+    left: 8px;
+    right: 8px;
+    height: 2px;
+    /* 您可以按需调整粗细 */
+    background-color: var(--border-color);
+    /* 核心修正 #2：使用正z-index，建立清晰的层级 */
+    z-index: 1;
+}
+
+.timeline-progress {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    /* 增加垂直居中确保对齐 */
+    /* 核心修正 #1：同样缩进左右两端 */
+    left: 8px;
+    right: 8px;
+    height: 2px;
+    /* 确保与背景轨道一样粗细 */
+    /* 核心修正 #3：移除 width: 100%，因为 left 和 right 已经定义了宽度 */
+    z-index: 2;
+    /* 确保进度条在背景轨道之上 */
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+}
+
+.timeline-step {
+    position: relative;
+    padding-bottom: 0;
+    /* 核心修正 #2：确保圆点在最上层 */
+    z-index: 3;
+}
+
+.timeline-marker {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--card-bg-color);
+    border: 2px solid var(--border-color);
+    transition: all 0.4s ease;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.timeline-marker::after {
+    content: '';
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: all 0.4s ease;
+}
+
+.timeline-step-endpoint .timeline-marker {
+    width: 16px;
+    height: 16px;
+    border-width: 3px;
+}
+
+.timeline-step-endpoint .timeline-marker::after {
+    width: 8px;
+    height: 8px;
+}
+
+.timeline-label {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    margin-top: 0;
+}
+
+.timeline-step.completed .timeline-label {
+    color: var(--font-color);
+}
+
+/* --- 滑动条(Slider)组件 --- */
+.slider-group-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.slider-value {
+    font-size: var(--font-size-body);
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    background: #ddd;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    background-repeat: no-repeat;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    margin-top: -7px;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* --- 图例组件 --- */ /* 这个是 graph-title */
+.graph-title {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    padding: 8px 16px;
+    box-shadow: var(--shadow-subtle);
+    font-size: var(--font-size-panel-title);
+    font-weight: 700;
+    color: var(--font-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap; /* [!code ++] */
+}
+
+/* Custom style to make specific radio buttons narrower */
+/* in _components.css */
+
+/* Custom style to make specific radio buttons narrower */
+.radio-label-narrow {
+    flex-grow: 0;      /* Keep this: prevents the button from growing */
+    flex-shrink: 0;    /* Add this: prevents the button from shrinking */
+    padding: 10px;     /* Adjust padding as needed */
+    /* [!code-start] */
+    width: 80px;       /* This will now work. Change this value to control the width. */
+    /* [!code-end] */
+}
+
+#budget,
+#neg_num {
+    flex-grow: 0 !important;     /* 关键！禁止它们拉伸填充空间 */
+    width: 20% !important;       /* 给它们一个和下拉框一样窄的宽度 */
+}
+
+/* --- 内联表单行的最终混合布局方案 --- */
+
+/* 1. 让每一行恢复“两端对齐”的基础布局 */
+.form-group.inline {
+    display: flex;
+    justify-content: space-between; /* 关键！恢复两端对齐，以创建中间的空白 */
+    align-items: center;
+    gap: 15px;
+    font-weight: 500;
+}
+
+/* 2. 确保左侧标题不被压缩 */
+.form-group.inline > label {
+    flex-shrink: 0;
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+/* --- 核心！为不同类型的控件设置不同的行为 --- */
+
+/* 3. 让“选择按钮组”自动延伸，填满空间 */
+.form-group.inline > .radio-group {
+    flex-grow: 1; /* 魔法！只有按钮组会拉伸 */
+}
+
+/* 4. 让“下拉框”和“输入框”保持一个固定的、较小的宽度 */
+.form-group.inline > select,
+.form-group.inline > input {
+    flex-grow: 0; /* 禁止它们拉伸 */
+    width: 55%;   /* 给它们一个默认的、较小的宽度。它们会自动右对齐 */
+}
+
+/* --- 用于次级操作按钮（如Play/Step）的“淡色”样式 --- */
+
+/* 1. 覆盖默认的背景色和阴影色 */
+.action-button-secondary {
+    /* 核心！使用一个更柔和、更淡的背景色 */
+    background-color: #fdbb7d; /* 这是一个比 #d15c2e 淡得多的橙色 */
+    
+    /* 核心！使用一个与之匹配的、更淡的阴影色 */
+    box-shadow: 0 5px 0 0 #e59f63;
+    border: none; 
+}
+
+/* 2. 覆盖悬浮时的阴影色 */
+.action-button-secondary:hover {
+    box-shadow: 0 7px 0 0 #e59f63;
+}         
+
+/* 3. 覆盖点击时的阴影色 */
+.action-button-secondary:active {
+    box-shadow: 0 2px 0 0 #e59f63;
+}

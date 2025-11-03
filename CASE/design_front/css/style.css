@@ -1,0 +1,11 @@
+/**
+ * main.css
+ *
+ * 主样式入口文件。
+ * 它不包含任何实际的样式规则，只负责按正确的依赖顺序导入所有CSS模块。
+ */
+
+ @import "modules/_base.css";
+ @import "modules/_layout.css";
+ @import "modules/_panels.css";
+ @import "modules/_components.css";

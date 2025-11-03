@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Influence Analysis System</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/split.js/dist/split.min.js"></script>
+    <script src="//unpkg.com/3d-force-graph/dist/3d-force-graph.min.js"></script>
+    <script src="//unpkg.com/d3-force-3d/dist/d3-force-3d.min.js"></script>
+    <script src="./js/echarts.min.js"></script>
+</head>
+
+<body>
+    <div class="main-container">
+
+        <!-- LEFT CONTROL PANEL -->
+        <div id="control-panel-card" class="card">
+            <div class="control-panel">
+                <h2 class="panel-title">Analysis Controls</h2>
+                <form id="control-form" class="form-content">
+
+                    <div class="control-sub-panel">
+                        <h4 class="sub-panel-title">⚙️ Task Settings</h4>
+                        <div class="form-group inline">
+                            <label for="dataset_id">Dataset</label>
+                            <select id="dataset_id">
+                                <option value="soc">Slashdot</option>
+                                <option value="facebook">Facebook</option>
+                                <option value="vote">Wiki-Vote</option>
+                            </select>
+                        </div>
+                        <div class="form-group inline">
+                            <label>Mode</label>
+                            <div class="radio-group radio-group-three">
+                                <label class="radio-label"><input type="radio" name="mode" value="maximization" checked>
+                                    MAX</label>
+                                <label class="radio-label"><input type="radio" name="mode" value="minimization">
+                                    MIN</label>
+                                <label class="radio-label"><input type="radio" name="mode" value="community_search">
+                                    CS</label>
+                            </div>
+                        </div>
+                        <div class="form-group inline">
+                            <label for="propagation_model">Propagation Model</label>
+                            <select id="propagation_model">
+                                <option value="IC">IC</option>
+                                <option value="LT">LT</option>
+                            </select>
+                        </div>
+                        <div id="probability_model_group" class="form-group inline">
+                            <label for="probability_model">Probability Model</label>
+                            <select id="probability_model">
+                                <option value="WC">WC</option>
+                                <option value="TR">TR</option>
+                                <option value="CO">CO</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="control-sub-panel">
+                        <h4 class="sub-panel-title">🎛️ Mode Parameters</h4>
+                        <div id="budget_group" class="form-group inline">
+                            <label id="budget-label" for="budget">Seed Budget (K)</label>
+                            <input id="budget" type="number" value="10" min="1" required>
+                        </div>
+                        <div id="neg_num_group" class="form-group inline hidden">
+                            <label for="neg_num">Negative Seed Count (N)</label>
+                            <input id="neg_num" type="number" value="10" min="1" required>
+                        </div>
+
+                        <div id="min_seed_mode_group" class="form-group inline hidden">
+                            <label>Seed Type</label>
+                            <div class="radio-group">
+                                <label class="radio-label"><input type="radio" name="min_seed_mode" value="IMM" checked>
+                                    Skewed</label>
+                                <label class="radio-label"><input type="radio" name="min_seed_mode" value="RANDOM">
+                                    Random</label>
+                            </div>
+                        </div>
+
+                        <div id="seed_nodes_group" class="form-group hidden">
+                            <label for="seed_nodes">Negative Seed Nodes</label>
+                            <textarea id="seed_nodes" rows="2" placeholder="e.g., 101, 205, 33"></textarea>
+                        </div>
+                        <div id="community_params_group" class="hidden">
+
+                            <div id="cs_seed_mode_group" class="form-group inline">
+                                <label>Seed Type</label>
+                                <div class="radio-group">
+                                    <label class="radio-label"><input type="radio" name="cs_seed_mode" value="IMM"
+                                            checked> Skewed </label>
+                                    <label class="radio-label"><input type="radio" name="cs_seed_mode" value="RANDOM">
+                                        Random</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cs_seed_nodes">Seed Nodes</label>
+                                <textarea id="cs_seed_nodes" rows="2" placeholder="e.g., 101, 205, 33"></textarea>
+                            </div>
+
+                            <div class="form-group inline">
+                                <label>Community<br>Model</label>
+                                <div class="radio-group">
+                                    <label class="radio-label"><input type="radio" name="community_algorithm"
+                                            value="kl_core" checked> (k,l)-core</label>
+                                    <label class="radio-label "><input type="radio" name="community_algorithm"
+                                            value="k_core"> k-core</label>
+                                    <label class="radio-label "><input type="radio" name="community_algorithm"
+                                            value="k_truss"> k-truss</label>
+                                </div>
+                            </div>
+
+                            <div id="k_param_group" class="form-group inline">
+                                <label id="k_param_label" for="k_param">Param (K)</label>
+                                <input id="k_param" type="number" value="10" min="1">
+                            </div>
+                            <div id="l_param_group" class="form-group inline" style="margin-bottom: 0;">
+                                <label id="l_param_label" for="l_param">Param (L)</label>
+                                <input id="l_param" type="number" value="5" min="1">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="dynamic-controls-section"></div>
+
+                    <button type="submit" class="run-button">🚀 Run Analysis</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- CENTER GRAPH PANEL -->
+        <div id="graph-card" class="card">
+            <div id="graph-container-wrapper">
+                <div class="graph-title">3D Visualization of Influence Propagation on Social Network</div>
+                <div id="3d-graph-container"></div>
+                <div class="graph-legend">
+                    <h4 class="legend-title">Legend</h4>
+                    <div id="legend-items-container"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT RESULTS PANEL -->
+        <div id="results-card" class="card">
+            <div class="results-area">
+                <h2 class="results-title">Analysis Results</h2>
+                <div id="results" class="results-box">Please configure parameters and run the analysis...</div>
+                <div id="results-actions-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+
+</html>
